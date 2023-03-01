@@ -1,0 +1,13 @@
+version: '2.4'
+services:
+  db:
+    image: mysql
+    container_name: rentalCompany
+    environment:
+       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "2000:3306"
+    volumes:
+      - allocation_system:/var/lib/mysql
+volumes:
+  allocation_system:
