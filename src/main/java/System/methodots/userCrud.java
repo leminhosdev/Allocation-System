@@ -1,6 +1,7 @@
 package System.methodots;
 
 import System.connection.mainconnection;
+import System.objects.movie;
 import System.objects.user;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -64,6 +67,7 @@ public class userCrud {
                     builder().
                     email(rs.getString("email")).
                     password(rs.getString("pasword")).
+                    balance(rs.getDouble("balance")).
                     build());
         } catch (SQLException e){
             log.info("We can't found ");
@@ -76,5 +80,33 @@ public class userCrud {
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, email);
         return ps;
+    }
+    public static List<user> findby2(String email) {
+        log.info("Finding all movies");
+        String sql = "SELECT * FROM rent_store.user where email like ?;";
+        List<user> users = new ArrayList<>();
+        try (Connection conn = mainconnection.getConnection();
+             PreparedStatement smt = create(conn, sql, email);
+             ResultSet rs = smt.executeQuery();
+        ) {
+            while (rs.next()) {
+                user newuser = user.
+                        builder().
+                        email(rs.getString("email")).balance(rs.getDouble("balance")).
+                        password(rs.getString("pasword")).
+                        build();
+                users.add(newuser);
+            }
+        } catch (SQLException e) {
+            log.error("deu B.O");
+            e.printStackTrace();
+        }
+        return users;
+    }
+    private static PreparedStatement create(Connection conn, String sql, String email) throws SQLException {
+        PreparedStatement smt = conn.prepareStatement(sql);
+        smt.setString(1, String.format("%%%s%%", email));
+        return smt;
+
     }
 }

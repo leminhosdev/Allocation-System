@@ -3,6 +3,10 @@ package System.methodots;
 public class teste {
     public static void main(String[] args) {
       //  userServices.register();
-        userServices.deposit();
+       // userServices.deposit();
+       MovieService.saveMovie();
+       // userServices.find();
+        //MovieService.savingMovieTEST();
+
     }
 }

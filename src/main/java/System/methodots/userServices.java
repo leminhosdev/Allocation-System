@@ -1,9 +1,11 @@
 package System.methodots;
 
+import System.objects.movie;
 import System.objects.user;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 @Slf4j
@@ -27,7 +29,7 @@ public class userServices {
         Optional<user> userOptional = userCrud.findbyEmail(emailfounded);
         if(userOptional.isEmpty()){
             System.out.println("user not found");
-            return;
+          return;
         }
         user userfounded = userOptional.get();
 
@@ -38,7 +40,8 @@ public class userServices {
                 builder().
                 email(userfounded.getEmail()).
                 password(userfounded.getPassword()).
-                 balance(Double.valueOf(amount)).
+                balance(Double.valueOf(amount) + userfounded.getBalance()).
+                rentedMovies(userfounded.getRentedMovies()).
                 build();
         try{
             userCrud.deposit(newbalance);
@@ -46,4 +49,15 @@ public class userServices {
             throw new RuntimeException();
         }
     }
+    public static void find(){
+        System.out.println("Type the name or empty to all");
+        String email = scanner.nextLine();
+        List<user> users = userCrud.findby2(email);
+        users.forEach(p -> System.out.printf(p.getEmail(), p.getBalance()));
+    }
+
 }
+    //balance(Double.valueOf(amount))if(userOptional.isEmpty()){
+//            System.out.println("user not found");
+//            return;
+//        }
