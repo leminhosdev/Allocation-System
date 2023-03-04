@@ -22,21 +22,23 @@ public class MovieCrud {
         try(Connection conn = mainconnection.getConnection();
             PreparedStatement smt = registerPrepareStatementMovie(conn, movie))
         {
+            boolean receptor = false;
             log.info("1");
            List<movie> movieList = findbyname(movie.getName());
             for(movie moviee: movieList){
             if (movie.getName().equalsIgnoreCase(moviee.getName())){
                 log.info("adding one more");
                 MovieService.update(moviee);
-
+                receptor = true;
                 //atualizar moviee para adicionar o valor amount + 1
             }
         }
-         //   if(){
-        //    savingMovieTEST(movie);
-       //     smt.execute();
-       //     log.info("added");
-     //   }
+            System.out.println(receptor);
+           if(receptor == false){
+            savingMovieTEST(movie);
+         //  smt.execute();
+            log.info("added");
+        }
         } catch (SQLException e){
             log.error("Error adding new movie in stock");
             e.printStackTrace();
