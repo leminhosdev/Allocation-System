@@ -23,7 +23,7 @@ public class userServices {
         String email = scanner.nextLine();
         System.out.print("password: ");
         String password = scanner.nextLine();
-        user newuser = user.builder().email(email).password(password).build();
+        user newuser = user.builder().email(email).password(password).balance(0.0).build();
         userCrud.register(newuser);
     }
 
@@ -74,6 +74,7 @@ public class userServices {
         ResultSet result = statement.executeQuery();
         if (result.next()) {
             System.out.println("Login successful!");
+            userCrud.InsiderLogin();
         } else {
             System.out.println("Invalid username or password.");
         }

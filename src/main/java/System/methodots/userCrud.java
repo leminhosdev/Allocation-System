@@ -31,10 +31,11 @@ public class userCrud {
         }
     }
     private static PreparedStatement registerPrepareStatement(Connection conn, user user) throws SQLException {
-        String sql = "INSERT INTO `rent_store`.`user` (`email`, `pasword`) VALUES (?, ?);";
+        String sql = "INSERT INTO `rent_store`.`user` (`email`, `pasword`,`balance`) VALUES (?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, user.getEmail());
         ps.setString(2, user.getPassword());
+        ps.setDouble(3,user.getBalance());
         return ps;
     }
     // UPDATE `rent_store`.`user` SET `balance` = '123' WHERE (`email` = 'dudumalah@gmail.com');
@@ -111,7 +112,18 @@ public class userCrud {
         return smt;
 
     }
-    private static void InsiderLogin(){
-
+    public static void InsiderLogin(){
+        int option = 5;
+        while(option != 0){
+            System.out.println("1 - list rented movies");
+            System.out.println("2 - See your balance");
+            System.out.println("0 - exit");
+            option = scanner.nextInt();
+            switch (option){
+                case 1 -> System.out.println("listou");
+                case 2 -> System.out.println("viu o saldo");
+            }
+        }
     }
+    private static Scanner scanner = new Scanner(System.in);
 }
