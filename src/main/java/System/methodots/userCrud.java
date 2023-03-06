@@ -82,7 +82,7 @@ public class userCrud {
         return ps;
     }
     public static List<user> findby2(String email) {
-        log.info("Finding all movies");
+        log.info("Finding all users");
         String sql = "SELECT * FROM rent_store.user where email like ?;";
         List<user> users = new ArrayList<>();
         try (Connection conn = mainconnection.getConnection();
@@ -108,5 +108,24 @@ public class userCrud {
         smt.setString(1, String.format("%%%s%%", email));
         return smt;
 
+    }
+
+
+    public static ResultSet login(user user){
+        try (Connection conn = mainconnection.getConnection();
+            PreparedStatement ps = loginprepareStatement(conn, user);
+             ResultSet rs = ps.executeQuery();){
+            return rs;
+        }catch (SQLException e){
+            log.error("incorrect credentials");
+            return null;
+        }
+    }
+    private static PreparedStatement loginprepareStatement(Connection conn, user user) throws SQLException{
+        String sql = "SELECT * FROM rent_store.user where email = ? and pasword = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, user.getEmail());
+        ps.setString(1, user.getPassword());
+        return ps;
     }
 }

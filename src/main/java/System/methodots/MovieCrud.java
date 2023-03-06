@@ -79,7 +79,7 @@ public class MovieCrud {
              PreparedStatement smt = create(conn, sql, name);
              ResultSet rs = smt.executeQuery();
         ) {
-            log.info("2");
+           // log.info("2");
             while (rs.next()) {
                 movie newmovie = movie.
                         builder().
@@ -87,7 +87,7 @@ public class MovieCrud {
                         amount(rs.getInt("amount")).
                         build();
                 movies.add(newmovie);
-                log.info("3");
+               // log.info("3");
             }
         } catch (SQLException e) {
             log.error("deu B.O");

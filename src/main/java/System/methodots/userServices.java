@@ -53,7 +53,7 @@ public class userServices {
         System.out.println("Type the name or empty to all");
         String email = scanner.nextLine();
         List<user> users = userCrud.findby2(email);
-        users.forEach(p -> System.out.printf(p.getEmail(), p.getBalance()));
+        users.forEach(p -> System.out.println(p.getEmail()));
     }
 
 }

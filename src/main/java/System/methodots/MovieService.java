@@ -41,11 +41,11 @@ public class MovieService {
             throw new RuntimeException();
         }
     }
-    private static void find(){
+    public static void find(){
         System.out.println("Type the name or empty to all");
         String name = scanner.nextLine();
         List<movie> movies = MovieCrud.findbyname(name);
-        movies.forEach(p -> System.out.printf(p.getName(),p.getPrice(), p.getAmount()));
+        movies.forEach(p -> System.out.println("name: "+p.getName()+"  price: "+p.getPrice()+"  amount: "+p.getAmount()));
     }
     public static void savingMovieTEST(){
         System.out.println("chose one NAME");
