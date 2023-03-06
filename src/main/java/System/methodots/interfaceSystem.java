@@ -8,6 +8,7 @@ public class interfaceSystem {
            case 3 -> userServices.deposit();
            case 4 -> MovieService.find();
            case 5 -> MovieService.saveMovie();
+           case 6 -> userServices.login();
            case 0 -> System.out.println("leaving");
             default -> throw new RuntimeException("ERROR");
        }

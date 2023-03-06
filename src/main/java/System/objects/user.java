@@ -11,5 +11,5 @@ public class user {
     private Double balance;
     private String password;
     private String email;
-    private List<movie> rentedMovies;
+   // private List<movie> rentedMovies;
 }

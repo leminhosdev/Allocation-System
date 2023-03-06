@@ -13,8 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Slf4j
+
 public class userCrud {
     //here we have the methods responsible for do the CRUD for users. and other methods.
 
@@ -110,22 +112,4 @@ public class userCrud {
 
     }
 
-
-    public static ResultSet login(user user){
-        try (Connection conn = mainconnection.getConnection();
-            PreparedStatement ps = loginprepareStatement(conn, user);
-             ResultSet rs = ps.executeQuery();){
-            return rs;
-        }catch (SQLException e){
-            log.error("incorrect credentials");
-            return null;
-        }
-    }
-    private static PreparedStatement loginprepareStatement(Connection conn, user user) throws SQLException{
-        String sql = "SELECT * FROM rent_store.user where email = ? and pasword = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, user.getEmail());
-        ps.setString(1, user.getPassword());
-        return ps;
-    }
 }
